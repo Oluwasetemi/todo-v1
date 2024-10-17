@@ -4,3 +4,9 @@
     margin-inline-start: 10px;
     /* margin-left: 10px; // ml-[10px] */
 }
+
+.completed {
+    text-decoration: line-through;
+    color: rgb(0, 255, 0, 0.99);
+    transition: 0.5s all;
+}

@@ -23,6 +23,22 @@ function createTodo(event) {
   // append the text node to the list item
   todoContent.appendChild(textNode);
 
+  // create a status checkbox
+  let checkboxSpan = document.createElement('span');
+  let statusCheckbox = document.createElement('input');
+  statusCheckbox.type = 'checkbox';
+  checkboxSpan.appendChild(statusCheckbox);
+
+  statusCheckbox.onchange = function () {
+    if (statusCheckbox.checked) {
+      li.classList.add('completed');
+    }
+    else {
+      li.classList.remove('completed');
+    }
+  }
+
+
   // create delete button
   let deleteButton = document.createElement('button');
   deleteButton.textContent = '❌';
@@ -37,6 +53,7 @@ function createTodo(event) {
   const li = document.createElement('li');
 
   // put todoContent and delete inside of the li
+  li.appendChild(checkboxSpan);
   li.appendChild(todoContent);
   li.appendChild(deleteButton);
 
