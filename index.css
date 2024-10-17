@@ -1,0 +1,6 @@
+.delete-todo {
+    color: red;
+    cursor: pointer;
+    margin-inline-start: 10px;
+    /* margin-left: 10px; // ml-[10px] */
+}

@@ -26,6 +26,8 @@ function createTodo(event) {
   // create delete button
   let deleteButton = document.createElement('button');
   deleteButton.textContent = '❌';
+  // deleteButton.style.marginLeft = '10px';
+  deleteButton.classList.add('delete-todo');
 
   deleteButton.onclick = function () {
     console.log('delete this todo', todoContent.textContent)
