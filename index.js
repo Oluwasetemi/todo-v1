@@ -1,6 +1,20 @@
-let input = document.querySelector('input');
-let button = document.querySelector('button');
-let ul = document.querySelector('ul');
+import { mk } from './util.js'
+
+let appTitle = mk('h1', null, ['Todo App 🚀']);
+
+let input = mk('input', { type: 'text', placeholder: 'Enter with your change todo app', required: true })
+
+let button = mk('button', { type: 'submit', textContent: 'Add Todo' })
+let todoForm = mk('form', { id: 'form' }, [input, button])
+
+let ul = mk('ul', null);
+
+document.body.appendChild(appTitle);
+document.body.appendChild(todoForm);
+document.body.appendChild(ul);
+
+
+
 console.log(input.value)
 
 button.addEventListener('click', createTodo);
