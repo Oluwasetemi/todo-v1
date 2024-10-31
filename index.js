@@ -1,86 +1,35 @@
-import { mk } from './util.js'
 
-let appTitle = mk('h1', null, ['Todo App 🚀']);
-
-let input = mk('input', { type: 'text', placeholder: 'Enter with your change todo app', required: true })
-
-let button = mk('button', { type: 'submit', textContent: 'Add Todo' })
-let todoForm = mk('form', { id: 'form' }, [input, button])
-
-let ul = mk('ul', null);
-
-document.body.appendChild(appTitle);
-document.body.appendChild(todoForm);
-document.body.appendChild(ul);
-
-
-
-console.log(input.value)
-
-button.addEventListener('click', createTodo);
-
-function createTodo(event) {
-  event.preventDefault();
-  console.log('creating todo');
-  const todo = input.value;
-
-  if (!todo) {
-    // alert('Please enter a todo');
-    throw new Error('Please enter a todo');
-    return;
-  }
-
-  // create a text node
-  const textNode = document.createTextNode(todo);
-  // create a list item element
-  let todoContent = document.createElement('span');
-  // append the text node to the list item
-  todoContent.appendChild(textNode);
-
-  // create a status checkbox
-  let checkboxSpan = document.createElement('span');
-  let statusCheckbox = document.createElement('input');
-  statusCheckbox.type = 'checkbox';
-  checkboxSpan.appendChild(statusCheckbox);
-
-  statusCheckbox.onchange = function () {
-    if (statusCheckbox.checked) {
-      li.classList.add('completed');
-    }
-    else {
-      li.classList.remove('completed');
-    }
-  }
-
-
-  // create delete button
-  let deleteButton = document.createElement('button');
-  deleteButton.textContent = '❌';
-  // deleteButton.style.marginLeft = '10px';
-  deleteButton.classList.add('delete-todo');
-
-  deleteButton.onclick = function () {
-    console.log('delete this todo', todoContent.textContent)
-    li.remove();
-  }
-
-  const li = document.createElement('li');
-
-  // put todoContent and delete inside of the li
-  li.appendChild(checkboxSpan);
-  li.appendChild(todoContent);
-  li.appendChild(deleteButton);
-
-  // append the list item to the unordered list
-  ul.appendChild(li);
-
-  // clear the input field
-  // form.reset();
-  input.value = '';
-  // input.autofocus = true;
+const Form = () => {
+  return React.createElement('form', { id: 'form' }, [
+    React.createElement('input', { type: 'text', placeholder: 'Todo React', required: true }),
+    React.createElement('button', { type: 'submit' }, 'Add Todo')
+  ])
 }
 
-//
-// button.onclick = function () {
-//   console.log(input.value);
-// }
+const TodoApp = () => {
+  const [id, setId] = React.useState(0);
+  const [todos, setTodos] = React.useState([]);
+  const [todoText, setTodoText] = React.useState('');
+
+  const createTodo = (e) => {
+    e.preventDefault();
+    if (!todoText.trim()) return;
+
+    setTodos([...todos, { id: id, text: todoText, completed: false }])
+    setId(id + 1)
+    setTodoText('')
+  }
+
+  return React.createElement('div', null, [
+    React.createElement('h1', null, 'Todo App React 🚀'),
+    React.createElement('form', { id: 'form' }, [
+      React.createElement('input', { type: 'text', placeholder: 'Todo React', required: true, value: todoText, onChange: (e) => setTodoText(e.target.value) }),
+      React.createElement('button', { type: 'submit', onClick: createTodo }, 'Add Todo',)
+    ]),
+    React.createElement('ul', null, todos.map(todo => React.createElement('li', { key: todo.id }, todo.text)))
+  ])
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root-react'))
+
+root.render(React.createElement(TodoApp))
