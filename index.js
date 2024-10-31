@@ -1,72 +1,13 @@
-let input = document.querySelector('input');
-let button = document.querySelector('button');
-let ul = document.querySelector('ul');
-console.log(input.value)
+import createTodo from './todo.js'
 
-button.addEventListener('click', createTodo);
+// bind, call, apply
+window.$ = document.querySelectorAll.bind(document);
 
-function createTodo(event) {
-  event.preventDefault();
-  console.log('creating todo');
-  const todo = input.value;
+// prototypes
+Node.prototype.on = window.on = function (name, fn) {
+  this.addEventListener(name, fn);
+};
 
-  if (!todo) {
-    // alert('Please enter a todo');
-    throw new Error('Please enter a todo');
-    return;
-  }
+let button = $('button')[0];
 
-  // create a text node
-  const textNode = document.createTextNode(todo);
-  // create a list item element
-  let todoContent = document.createElement('span');
-  // append the text node to the list item
-  todoContent.appendChild(textNode);
-
-  // create a status checkbox
-  let checkboxSpan = document.createElement('span');
-  let statusCheckbox = document.createElement('input');
-  statusCheckbox.type = 'checkbox';
-  checkboxSpan.appendChild(statusCheckbox);
-
-  statusCheckbox.onchange = function () {
-    if (statusCheckbox.checked) {
-      li.classList.add('completed');
-    }
-    else {
-      li.classList.remove('completed');
-    }
-  }
-
-
-  // create delete button
-  let deleteButton = document.createElement('button');
-  deleteButton.textContent = '❌';
-  // deleteButton.style.marginLeft = '10px';
-  deleteButton.classList.add('delete-todo');
-
-  deleteButton.onclick = function () {
-    console.log('delete this todo', todoContent.textContent)
-    li.remove();
-  }
-
-  const li = document.createElement('li');
-
-  // put todoContent and delete inside of the li
-  li.appendChild(checkboxSpan);
-  li.appendChild(todoContent);
-  li.appendChild(deleteButton);
-
-  // append the list item to the unordered list
-  ul.appendChild(li);
-
-  // clear the input field
-  // form.reset();
-  input.value = '';
-  // input.autofocus = true;
-}
-
-//
-// button.onclick = function () {
-//   console.log(input.value);
-// }
+button.on('click', createTodo);
