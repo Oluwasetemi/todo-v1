@@ -9,10 +9,12 @@ let todoForm = mk('form', { id: 'form' }, [input, button])
 
 let ul = mk('ul', null);
 
-document.body.appendChild(appTitle);
-document.body.appendChild(todoForm);
-document.body.appendChild(ul);
+function render() {
+  let root = document.getElementById('root');
+  root.prepend(appTitle, todoForm, ul);
+}
 
+render();
 
 
 console.log(input.value)
